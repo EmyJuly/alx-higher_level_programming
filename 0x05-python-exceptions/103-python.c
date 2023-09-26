@@ -1,4 +1,6 @@
-uth: Type Your Name Here
+/*
+ * File: 103-python.c
+ * Auth: Type Your Name Here
  */
 
 #include <Python.h>
