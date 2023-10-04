@@ -1,5 +1,6 @@
 /*
  * File: 102-python.c
+ * Author: IMANE EL IDRISSI
  */
 
 #include "Python.h"
