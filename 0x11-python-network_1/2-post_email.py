@@ -1,43 +1,24 @@
 #!/usr/bin/python3
 """
-Module to access to the GitHub API and uses the information
+POST request to the passed URL with the email as a parameter
 """
-import requests
-from requests.auth import HTTPBasicAuth
+import urllib.request
 from sys import argv
 
 
 def main(argv):
     """
-    Function that list 10 commits (from the most recent to oldest)
-    of the repository.The first argument will be the repository name
-    and the second argument will be the owner name
+    Sends a POST request to the passed URL with the email as a parameter,
+    and displays the body of the response (decoded in utf-8)
     """
-
-    def print_commits(i, commit_list):
-        """
-        List the commits, less than 10 commits
-        """
-        sha = commit_list[i].get('sha')
-        commit = commit_list[i].get('commit')
-        author = commit.get('author')
-        name = author.get('name')
-        print('{}: {}'.format(sha, name))
-
-    repo = argv[1]
-    owner = argv[2]
-    headers = {"Accept": "application/vnd.github.v3+json"}
-    response = requests.get('https://api.github.com/repos/' + owner +
-                            '/' + repo + '/commits', headers=headers)
-    commit_list = response.json()
-    size = len(commit_list)
-    if size < 10:
-        for i in range(0, size):
-            print_commits(i, commit_list)
-    else:
-        for i in range(0, 10):
-            print_commits(i, commit_list)
-
+    values = {'email': argv[2]}
+    data = urllib.parse.urlencode(values)
+    data = data.encode('utf8')
+    url = argv[1]
+    req = urllib.request.Request(url, data)
+    with urllib.request.urlopen(req) as response:
+        result = response.read()
+        print(result.decode('utf8'))
 
 if __name__ == "__main__":
     main(argv)
