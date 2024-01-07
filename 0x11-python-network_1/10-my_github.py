@@ -7,7 +7,7 @@ from requests.auth import HTTPBasicAuth
 from sys import argv
 
 
-def main(argv):
+if __name__ == "__main__":
     """
     Script that takes your GitHub credentials (username and password) and
     uses the GitHub API to display your id.
@@ -21,6 +21,3 @@ def main(argv):
         print(profile_info['id'])
     except:
         print('None')
-
-if __name__ == "__main__":
-    main(argv)
