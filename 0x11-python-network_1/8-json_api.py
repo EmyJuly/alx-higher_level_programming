@@ -7,9 +7,9 @@ import requests
 from sys import argv
 
 
-def search_user(argv):
+def main(argv):
     """
-    Function that takes in a letter and sends a POST request to
+    Script that takes in a letter and sends a POST request to
     http://0.0.0.0:5000/search_user with the letter as a parameter.
     """
     if len(argv) < 2:
@@ -28,6 +28,5 @@ def search_user(argv):
     except:
         print("Not a valid JSON")
 
-
 if __name__ == "__main__":
-    search_user(argv)
+    main(argv)
