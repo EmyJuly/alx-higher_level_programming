@@ -1,17 +1,27 @@
 #!/usr/bin/python3
 """
-Python script that sends a request to the URL and
-displays:
-- The body of the response if there are no errors
-- The error code when there is an HTTP error.
+Sends a request to the URL and displays the body of the response.
 """
 import requests
-import sys
+from sys import argv
+
+
+def fetch_url_content(url):
+    """
+    Function that fetches URL content and handles HTTP errors
+    """
+    try:
+        r = requests.get(url)
+        r.raise_for_status()
+        return r.text
+    except requests.exceptions.HTTPError as err:
+        return f"Error code: {err.response.status_code}"
 
 
 if __name__ == "__main__":
-    r = requests.get(sys.argv[1])
-    if r.status_code >= 400:
-        print("Error code: {}".format(r.status_code))
+    if len(argv) != 2:
+        print("Usage: python script.py <URL>")
     else:
-        print(r.text)
+        url = argv[1]
+        content = fetch_url_content(url)
+        print(content)
